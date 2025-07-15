@@ -3,9 +3,27 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite" 
   url      = env("DATABASE_URL")
 }
+
+/*
+for sqlite
+datasource db {
+  provider = "sqlite" 
+  url      = env("DATABASE_URL")
+}
+*/
+
+/*
+for postgresql
+datasource db {
+  provider = "postgresql" 
+  url      = env("DATABASE_URL")
+}
+*/
+
+
 
 model student {
   roll_no            Int    @id @default(autoincrement())
