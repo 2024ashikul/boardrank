@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model student {
+  roll_no            Int    @id @default(autoincrement())
+  name               String
+  group              String
+  board              String
+  father_name        String
+  mother_name        String
+  session            String
+  reg_no             BigInt
+  type_of_result     String
+  institute          String
+  gpa                Float?
+  dob                String
+  sum                Int
+  bangla             Int?
+  english            Int?
+  math               Int?
+  geography          Int?
+  islam_moral        Int?
+  hindu_moral        Int?
+  buddha_moral       Int?
+  christian_moral    Int?
+  higher_math        Int?
+  general_science    Int?
+  agriculture        Int?
+  physics            Int?
+  chemistry          Int?
+  biology            Int?
+  civics             Int?
+  economics          Int?
+  business_ent       Int?
+  accounting         Int?
+  physical_education Int?
+  music              Int?
+  bangladesh_world   Int?
+  home_science       Int?
+  finance_banking    Int?
+  history_bd         Int?
+  ict                Int?
+  career_education   Int?
+}
