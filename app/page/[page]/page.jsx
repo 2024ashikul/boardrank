@@ -37,7 +37,7 @@ export default async function Page({ params }) {
   return (
     <>
     
-      <div className="flex justify-center gap-3 ">
+      <div className="flex justify-center gap-3  ">
         <div className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page-1}`}>Prev</Link></div>
         {paginationList.map((page, index) => (
           <div key={index} className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page}`}>{page}</Link></div>
