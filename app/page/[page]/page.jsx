@@ -1,29 +1,22 @@
 import NavBar from "@/components/NavBar";
-// import prisma from "@/lib/prisma";
+import prisma from "@/lib/prisma";
 import Link from "next/link";
-import pool from '@/lib/db';
+
 
 
 export default async function Page({ params }) {
   const page = parseInt(await params.page, 10) || 1;
   console.log(page);
-  // const students = await prisma.student.findMany({
-  //   take: 100,
-  //   skip: (page-1) * 100,
-  //   orderBy: {
-  //     sum: 'desc'
-  //   },
-  // });
-  const { rows: students } = await pool.query(`
-  SELECT * FROM student
-  ORDER BY sum DESC
-  LIMIT 100 OFFSET $1
-`, [(page - 1) * 100]);
+  const students = await prisma.student.findMany({
+    take: 100,
+    skip: (page-1) * 100,
+    orderBy: {
+      sum: 'desc'
+    },
+  });
 
-
-  const result = await pool.query('SELECT COUNT(*) FROM student');
-  const totalStudents = parseInt(result.rows[0].count, 10);
-  const count = Math.ceil(totalStudents / 100);
+  const temp = await prisma.student.count();
+  const count = Math.floor(temp / 100)
 
   const paginationList = [];
   if (count <= 10) {
@@ -37,19 +30,19 @@ export default async function Page({ params }) {
   }
   paginationList.sort((a, b) => a - b);
 
-
+  
 
   console.log(count);
 
   return (
     <>
-
+    
       <div className="flex justify-center gap-3  ">
-        <div className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page - 1}`}>Prev</Link></div>
+        <div className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page-1}`}>Prev</Link></div>
         {paginationList.map((page, index) => (
           <div key={index} className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page}`}>{page}</Link></div>
         ))}
-        <div className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page + 1}`}>Next</Link></div>
+        <div className="bg-amber-200 px-4 py-1 rounded-sm"><Link href={`/page/${page+1}`}>Next</Link></div>
       </div>
       <div className="max-w-max m-auto w-full">
         <h1>Student List</h1>
@@ -65,11 +58,11 @@ export default async function Page({ params }) {
             </tr>
           </thead>
           <tbody>
-            {students.map((student, i) => {
+            {students.map((student,i) => {
               const rank = (page - 1) * 100 + 1;
               return (
-                <tr key={student.roll_no} className={`${(rank + i) % 2 == 0 ? 'bg-green-200' : 'bg-green-100'} h-12`}>
-                  <td className="px-5">{rank + i}</td>
+                <tr key={student.roll_no} className={`${(rank+i) % 2 == 0 ? 'bg-green-200' : 'bg-green-100'} h-12`}>
+                  <td className="px-5">{rank+i}</td>
                   <td className="px-5">{student.roll_no}</td>
                   <td className="px-5"> <Link href={`/ind/${student.roll_no}`}>{student.name}</Link></td>
                   <td className="px-5">{student.gpa}</td>
