@@ -3,6 +3,9 @@ import prisma from "@/lib/prisma";
 import React from "react";
 
 export async function generateStaticParams() {
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Debug info: Running getStaticProps');
+  }
   const totalCount = await prisma.student.count();
   const totalPages = Math.ceil(totalCount / 100);
 
@@ -13,6 +16,7 @@ export async function generateStaticParams() {
 
 
 export default async function Page({ params }) {
+  
   const page = parseInt(params.page, 10) || 1;
 
   const students = await prisma.student.findMany({

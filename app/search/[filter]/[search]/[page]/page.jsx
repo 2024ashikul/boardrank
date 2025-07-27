@@ -7,6 +7,7 @@ import Link from "next/link";
 
 
 export default async function Page({ params }) {
+  
   let filter = params.filter;
   let search = decodeURIComponent(params.search);
   const page = params.page;

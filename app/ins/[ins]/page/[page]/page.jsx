@@ -5,7 +5,10 @@ import prisma from "@/lib/prisma";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  // Get unique institutes
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('Debug info: Running getStaticProps');
+  }
+  
   const institutes = await prisma.student.groupBy({
   by: ['institute'],
 });
