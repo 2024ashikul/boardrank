@@ -51,7 +51,7 @@ export default async function Page({ params }) {
 
   const totalPages = Math.ceil(totalCount / 100);
 
-  // Build pagination list (simple window)
+  
   let paginationList = [];
   if (totalPages <= 10) {
     paginationList = Array.from({ length: totalPages }, (_, i) => i + 1);

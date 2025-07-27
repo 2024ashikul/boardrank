@@ -25,10 +25,10 @@ export default async function Page({ params }) {
   const totalPages = Math.ceil(totalCount / 100);
 
   return (
-    <div className="max-w-4xl mx-auto py-8">
+    <div className="max-w-4xl px-8 py-8 transition duration-500">
       <h1 className="text-2xl font-bold mb-4 text-center">Student Rankings – Page {page}</h1>
 
-      <table className="w-full border">
+      <table className="w-full border min-w-screen">
         <thead>
           <tr className="bg-gray-200 text-left">
             <th className="p-2">Rank</th>
@@ -43,7 +43,7 @@ export default async function Page({ params }) {
           {students.map((student, i) => {
             const rank = (page - 1) * 100 + i + 1;
             return (
-              <tr key={student.roll_no} className={rank % 2 === 0 ? 'bg-green-100' : 'bg-green-50'}>
+              <tr key={student.roll_no} className={''}>
                 <td className="p-2">{rank}</td>
                 <td className="p-2">{student.roll_no}</td>
                 <td className="p-2">
