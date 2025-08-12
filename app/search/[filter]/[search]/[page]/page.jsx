@@ -95,7 +95,7 @@ export default async function Page({ params }) {
                 {students.map((student, i) => {
                   const rank = (page - 1) * 100 + 1;
                   return (
-                    <tr key={student.roll_no} className={`${(rank + i) % 2 == 0 ? 'bg-green-200' : 'bg-green-100'} h-12`}>
+                    <tr key={student.roll_no} className={`${(rank + i) % 2 == 0 ? 'bg-green-500' : 'bg-green-400'} h-12`}>
                       <td className="px-5">{rank + i}</td>
                       <td className="px-5">{student.roll_no}</td>
                       <td className="px-5"> <Link href={`/ind/${student.roll_no}`}>{student.name}</Link></td>

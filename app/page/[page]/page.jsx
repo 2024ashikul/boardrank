@@ -16,7 +16,7 @@ export async function generateStaticParams() {
 
 
 export default async function Page({ params }) {
-  
+
   const page = parseInt(params.page, 10) || 1;
 
   const students = await prisma.student.findMany({
@@ -29,12 +29,42 @@ export default async function Page({ params }) {
   const totalPages = Math.ceil(totalCount / 100);
 
   return (
-    <div className="max-w-4xl px-8 py-8 transition duration-500">
-      <h1 className="text-2xl font-bold mb-4 text-center">Student Rankings – Page {page}</h1>
+    <div className="overflow-x-auto px-8 transition duration-500 items-center flex flex-col justify-between">
+      <h1 className="text-2xl font-bold mb-2 text-center">Student Rankings – Page {page}</h1>
+      <div className=" flex py-2 justify-center gap-4">
+        {page > 1 && (
+          <Link href={`/page/${page - 1}`} className="px-3 py-1 bg-amber-200 rounded-sm">
+            Prev
+          </Link>
+        )}
 
-      <table className="w-full border min-w-screen">
+        {Array.from({ length: totalPages }, (_, i) => i + 1)
+          .filter(p => p === 1 || p === totalPages || Math.abs(p - page) <= 3)
+          .map((p, idx, arr) => {
+            const prev = arr[idx - 1];
+            const showEllipsis = prev && p - prev > 1;
+            return (
+              <React.Fragment key={p}>
+                {showEllipsis && <span className="px-2">...</span>}
+                <Link
+                  href={`/page/${p}`}
+                  className={`px-3 py-1 rounded-sm ${p === page ? 'bg-gray-400' : 'bg-violet-200'}`}
+                >
+                  {p}
+                </Link>
+              </React.Fragment>
+            );
+          })}
+
+        {page < totalPages && (
+          <Link href={`/page/${page + 1}`} className="px-3 py-1 bg-amber-200 rounded-sm">
+            Next
+          </Link>
+        )}
+      </div>
+      <table className="min-w-[1000px] border">
         <thead>
-          <tr className="bg-gray-200 text-left">
+          <tr className="bg-green-500 text-white text-left">
             <th className="p-2">Rank</th>
             <th className="p-2">Roll No</th>
             <th className="p-2">Name</th>
@@ -47,7 +77,7 @@ export default async function Page({ params }) {
           {students.map((student, i) => {
             const rank = (page - 1) * 100 + i + 1;
             return (
-              <tr key={student.roll_no} className={''}>
+              <tr key={student.roll_no} className="hover:bg-blue-100">
                 <td className="p-2">{rank}</td>
                 <td className="p-2">{student.roll_no}</td>
                 <td className="p-2">
@@ -56,9 +86,9 @@ export default async function Page({ params }) {
                   </Link>
                 </td>
                 <td className="p-2">{student.gpa}</td>
-                <td className="p-2">
+                <td className="p-2 break-words max-w-[400px] ">
                   <Link href={`/ins/${encodeURIComponent(student.institute)}/page/1`} className="text-blue-600 underline">
-                    {student.institute}
+                    {student.institute.slice(0, -12)}
                   </Link>
                 </td>
                 <td className="p-2">{student.sum}</td>

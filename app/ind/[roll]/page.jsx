@@ -47,11 +47,11 @@ export default async function Individual({ params }) {
                     </tbody>
                 </table>
                 
-                <table className="w-max-w table-auto  mx-16 justify-center ">
+                <table className="w-max-w table-auto mx-16 justify-center ">
                     <caption className="text-2xl my-4">Detailed Marks</caption>
 
                     <tbody>
-                        <tr className="px-4 border bg-green-200 ">
+                        <tr className="px-4 border bg-green-500 ">
                             <td className="py-1 px-4 capitalize" >Subject</td>
                             <td>Marks</td>
                         </tr>
@@ -65,7 +65,7 @@ export default async function Individual({ params }) {
                                 </td>
                             </tr>
                         ))}
-                        <tr className="px-4 border bg-green-200">
+                        <tr className="px-4 border bg-green-500">
                             <td className="py-1 px-4 capitalize" >Total</td>
                             <td>{student.sum}</td>
                         </tr>
