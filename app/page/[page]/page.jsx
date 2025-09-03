@@ -2,6 +2,12 @@ import Link from "next/link";
 import prisma from "@/lib/prisma";
 import React from "react";
 
+export const metadata = {
+  
+  title: `Student Rankings `,
+  description: `View student rankings, GPA, and marks for Page. Updated list sorted by performance.`,
+};
+
 export async function generateStaticParams() {
   if (process.env.NODE_ENV !== 'production') {
     console.log('Debug info: Running getStaticProps');

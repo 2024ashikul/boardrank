@@ -3,7 +3,7 @@ import prisma from "@/lib/prisma"
 
 export default async function Individual({ params }) {
 
-    const roll = parseInt(await params.roll);
+    const roll = parseInt(params.roll);
     const student = await prisma.student.findUnique({
         where: {
             roll_no: roll

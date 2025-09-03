@@ -13,8 +13,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Board Result 2025 SSC",
-  description: "this app has completed the rankings of ssc examination 2025 of chattogram board",
+  title: "Student Rankings 2025",
+  description: "View the top student rankings by GPA and marks.",
+  keywords: ["student rankings", "GPA", "board results"],
+  openGraph: {
+    title: "Student Rankings",
+    description: "View the top student rankings by GPA and marks.",
+    type: "website",
+  }
 };
 
 export default function RootLayout({ children }) {
